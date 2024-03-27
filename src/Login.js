@@ -37,10 +37,13 @@ const Login = () => {
     event.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost/login.php", {
-        id: id,
-        password: password,
-      });
+      const response = await axios.post(
+        "https://createlogin.vercel.app/login.php",
+        {
+          id: id,
+          password: password,
+        }
+      );
 
       if (response.data.success) {
         // ログインが成功した場合、トークンを保存し、Homeコンポーネントにリダイレクトする
