@@ -1,3 +1,4 @@
+// Home.js
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Card from "@mui/material/Card";
@@ -21,7 +22,9 @@ const Home = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost/home.php");
+        const response = await axios.get(
+          "https://createlogin.vercel.app/home.php"
+        );
         setData(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
