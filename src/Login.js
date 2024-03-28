@@ -3,7 +3,22 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+import Paper from "@mui/material/Paper";
+import Stack from "@mui/material/Stack";
+import { styled as styledMaterial } from "@mui/material/styles"; // 別名を付けてインポートする
 import styled from "styled-components";
+
+const MaterialItem = styledMaterial(Paper)(({ theme }) => ({
+  backgroundColor:
+    theme.palette.mode === "dark"
+      ? "rgba(255, 0, 0, 0.3)"
+      : "rgba(255, 0, 0, 0.1)", // 透けてる赤みたいな色に設定
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: "center",
+  color: theme.palette.text.secondary,
+}));
 
 const CenteredContainer = styled.div`
   display: flex;
@@ -43,7 +58,6 @@ const Login = () => {
       });
 
       if (response.data.success) {
-        // ログインが成功した場合、トークンを保存し、Homeコンポーネントにリダイレクトする
         localStorage.setItem("token", response.data.token);
         history.push("/home");
       } else {
@@ -80,7 +94,13 @@ const Login = () => {
         <Button style={{ marginTop: 20 }} type="submit" variant="contained">
           login
         </Button>
-        <p>{message}</p>
+        {message && ( // メッセージが空でない場合にのみ表示
+          <Box sx={{ width: "100%", paddingTop: 5 }}>
+            <Stack spacing={2}>
+              <MaterialItem style={{ padding: 20 }}>{message}</MaterialItem>
+            </Stack>
+          </Box>
+        )}
       </StyledForm>
     </CenteredContainer>
   );
