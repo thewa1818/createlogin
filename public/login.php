@@ -1,10 +1,16 @@
 <?php
 
 header("Access-Control-Allow-Origin: https://createlogin.vercel.app");
-header("Access-Control-Allow-Methods: POST");
+header("Access-Control-Allow-Methods: POST, OPTIONS"); // OPTIONS メソッドを許可
 header("Access-Control-Allow-Headers: Content-Type");
 
 header("Content-Type: application/json");
+
+// CORS プリフライトリクエストを処理
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    // 空のレスポンスを返す
+    exit();
+}
 
 $rest_json = file_get_contents("php://input");
 $data = json_decode($rest_json, true);
